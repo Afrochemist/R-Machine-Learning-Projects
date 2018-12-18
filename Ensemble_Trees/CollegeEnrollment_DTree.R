@@ -16,8 +16,8 @@ head(df)
 #Train/Test split
 set.seed(101)
 sample <- sample.split(df$Private, SplitRatio = 0.70)
-train <- subset(sample, sample == T)
-test <- subset(sample, sample == F)
+train <- subset(df, sample == T)
+test <- subset(df, sample == F)
 
 #Creating the decision tree
 tree <- rpart(Private ~ ., data = train, method ='class')
@@ -47,7 +47,7 @@ tree_predictions <- sapply(tree_predictions$Yes,joiner)
 head(tree_predictions)
 
 #Confusion matrix from the training and testing data
-table(tree_predictions$Private, test$Private)
+confusionMatrix(tree_predictions$Private, test$Private)
 
 #plotting the tree
 prp(tree)
